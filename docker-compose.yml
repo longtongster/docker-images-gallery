@@ -1,8 +1,8 @@
 version: '3'
 services:
   frontend:
-    restart: always
     build: ./frontend
+    restart: always
     ports:
       - '3000:3000'
     # maps frontend folder to app in the container
@@ -12,9 +12,31 @@ services:
     environment:
      - CHOKIDAR_USEPOLLING=true
   api:
-    restart: always
     build: ./api
+    restart: always
     ports:
       - '5050:5050'
     volumes:
       - ./api:/app
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root 
+      MONGO_INITDB_ROOT_PASSWORD: example
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports: 
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root 
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    depends_on:
+      - mongo
+  curl:
+    # I was able to use this container to connect to the api service
+    # "curl api:5050"
+    # Since the container exists I did this outside the the compose file
+    image: appropriate/curl
