@@ -24,6 +24,9 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root 
       MONGO_INITDB_ROOT_PASSWORD: example
+    # note the difference with volume under the api service
+    volumes:
+      - mongodb_data:/data/db
   mongo-express:
     image: mongo-express
     restart: always
@@ -33,10 +36,16 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
       ME_CONFIG_MONGODB_ADMINUSERNAME: root 
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
-    depends_onj:
+    depends_on:
       - mongo
   curl:
-    # I was able to use this container to connect to the api service
+    # I was able o use this container to connect to the api service
     # "curl api:5050"
-    # Since the container exists I did this outside the the compose file
+    # Since the container exists I did this outside the compose file
     image: appropriate/curl
+
+  # instead of mapping a directory we can also use docker volumes.
+  # The volume will not be deleted if we stop the service
+volumes:
+  mongodb_data:
+
