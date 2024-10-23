@@ -21,3 +21,6 @@ UNSPLASH_KEY=2MJvApIkV13hfg2LmQlneILfHoJ2ttlzSdPKefGOyKM
 ```
 
 - Save modified **.env.local** file
+
+## remarks:
+- the `mongo` command does not work inside the mongo container as the course indicates. This must be `mongosh`
