@@ -24,3 +24,11 @@ UNSPLASH_KEY=2MJvApIkV13hfg2LmQlneILfHoJ2ttlzSdPKefGOyKM
 
 ## remarks:
 - the `mongo` command does not work inside the mongo container as the course indicates. This must be `mongosh`
+#### video 197 
+`ping` is not available inside the api container. Install ping:
+
+```
+apt-get update -y
+apt-get install -y iputils-ping
+```
+
